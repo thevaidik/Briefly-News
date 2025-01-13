@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GenreSelectionView: View {
+struct SelectionView: View {
     let genres = ["Bollywood", "AI News", "Defense"]
     @State private var selectedGenre = "Bollywood"
     @StateObject private var viewModel = NewsViewModel()
@@ -39,5 +39,5 @@ struct GenreSelectionView: View {
     }
 }
 #Preview {
-    GenreSelectionView()
+    SelectionView()
 }
