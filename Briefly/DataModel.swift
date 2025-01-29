@@ -7,36 +7,6 @@
 
 import Foundation
 
-//struct NewsItem: Codable, Identifiable {
-//    var id = UUID()
-//    let title: String
-//    let description: String
-//    let link: String
-//    let pubDate: String
-//    let source: String
-//}
-//
-//class NewsViewModel: ObservableObject {
-//    @Published var newsItems: [NewsItem] = []
-//    
-//    func fetchNews(genre: String) async {
-//        guard let url = URL(string: "https://m4vnpasso7.execute-api.ap-south-1.amazonaws.com/getnews/\(genre)") else {
-//            return
-//        }
-//        
-//        do {
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            let response = try JSONDecoder().decode([String: [NewsItem]].self, from: data)
-//            
-//            DispatchQueue.main.async {
-//                self.newsItems = response["news"] ?? []
-//            }
-//        } catch {
-//            print("Error fetching news: \(error)")
-//        }
-//    }
-//}
-
 struct NewsItem: Codable, Identifiable {
     var id = UUID()
     let title: String
