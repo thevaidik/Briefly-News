@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectionView: View {
-    let genres = ["bollywood", "AI News", "Defense", "Tech", "Health", "business", "Sports"]
+    let genres = ["technology", "business", "sports", "entertainment", "science", "world", "health" , "ai" , "hollywood" , "defence", "politics","automobile","space","economy"]
     @State private var selectedGenre = "bollywood"
     @StateObject private var viewModel = NewsViewModel()
     @State private var showingNews = false
@@ -27,13 +27,13 @@ struct SelectionView: View {
                 
                 VStack(spacing: 30) {
                     // Header
-                    Text("News Explorer")
+                    Text("Explore News")
                         .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
                         .shadow(radius: 10)
                         .padding(.top, 50)
                     
-                    Text("Select Your Interest")
+                    Text("Select Genre")
                         .font(.title3)
                         .foregroundColor(.white.opacity(0.8))
                     
