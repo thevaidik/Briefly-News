@@ -24,15 +24,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		206720B02D357E3A0096970F /* News points.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News points.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		206720C02D357E3D0096970F /* News pointsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "News pointsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		206720CA2D357E3D0096970F /* News pointsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "News pointsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720B02D357E3A0096970F /* Briefly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Briefly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720C02D357E3D0096970F /* BrieflyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrieflyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720CA2D357E3D0096970F /* BrieflyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrieflyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		206720B22D357E3A0096970F /* News points */ = {
+		206720B22D357E3A0096970F /* Briefly */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "News points";
+			path = Briefly;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -65,7 +65,7 @@
 		206720A72D357E3A0096970F = {
 			isa = PBXGroup;
 			children = (
-				206720B22D357E3A0096970F /* News points */,
+				206720B22D357E3A0096970F /* Briefly */,
 				206720B12D357E3A0096970F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 		206720B12D357E3A0096970F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				206720B02D357E3A0096970F /* News points.app */,
-				206720C02D357E3D0096970F /* News pointsTests.xctest */,
-				206720CA2D357E3D0096970F /* News pointsUITests.xctest */,
+				206720B02D357E3A0096970F /* Briefly.app */,
+				206720C02D357E3D0096970F /* BrieflyTests.xctest */,
+				206720CA2D357E3D0096970F /* BrieflyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,9 +83,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		206720AF2D357E3A0096970F /* News points */ = {
+		206720AF2D357E3A0096970F /* Briefly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "News points" */;
+			buildConfigurationList = 206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly" */;
 			buildPhases = (
 				206720AC2D357E3A0096970F /* Sources */,
 				206720AD2D357E3A0096970F /* Frameworks */,
@@ -96,18 +96,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				206720B22D357E3A0096970F /* News points */,
+				206720B22D357E3A0096970F /* Briefly */,
 			);
-			name = "News points";
+			name = Briefly;
 			packageProductDependencies = (
 			);
 			productName = "News points";
-			productReference = 206720B02D357E3A0096970F /* News points.app */;
+			productReference = 206720B02D357E3A0096970F /* Briefly.app */;
 			productType = "com.apple.product-type.application";
 		};
-		206720BF2D357E3D0096970F /* News pointsTests */ = {
+		206720BF2D357E3D0096970F /* BrieflyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "News pointsTests" */;
+			buildConfigurationList = 206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyTests" */;
 			buildPhases = (
 				206720BC2D357E3D0096970F /* Sources */,
 				206720BD2D357E3D0096970F /* Frameworks */,
@@ -118,16 +118,16 @@
 			dependencies = (
 				206720C22D357E3D0096970F /* PBXTargetDependency */,
 			);
-			name = "News pointsTests";
+			name = BrieflyTests;
 			packageProductDependencies = (
 			);
 			productName = "News pointsTests";
-			productReference = 206720C02D357E3D0096970F /* News pointsTests.xctest */;
+			productReference = 206720C02D357E3D0096970F /* BrieflyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		206720C92D357E3D0096970F /* News pointsUITests */ = {
+		206720C92D357E3D0096970F /* BrieflyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "News pointsUITests" */;
+			buildConfigurationList = 206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyUITests" */;
 			buildPhases = (
 				206720C62D357E3D0096970F /* Sources */,
 				206720C72D357E3D0096970F /* Frameworks */,
@@ -138,11 +138,11 @@
 			dependencies = (
 				206720CC2D357E3D0096970F /* PBXTargetDependency */,
 			);
-			name = "News pointsUITests";
+			name = BrieflyUITests;
 			packageProductDependencies = (
 			);
 			productName = "News pointsUITests";
-			productReference = 206720CA2D357E3D0096970F /* News pointsUITests.xctest */;
+			productReference = 206720CA2D357E3D0096970F /* BrieflyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -168,7 +168,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 206720AB2D357E3A0096970F /* Build configuration list for PBXProject "News points" */;
+			buildConfigurationList = 206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -182,9 +182,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				206720AF2D357E3A0096970F /* News points */,
-				206720BF2D357E3D0096970F /* News pointsTests */,
-				206720C92D357E3D0096970F /* News pointsUITests */,
+				206720AF2D357E3A0096970F /* Briefly */,
+				206720BF2D357E3D0096970F /* BrieflyTests */,
+				206720C92D357E3D0096970F /* BrieflyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -240,12 +240,12 @@
 /* Begin PBXTargetDependency section */
 		206720C22D357E3D0096970F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 206720AF2D357E3A0096970F /* News points */;
+			target = 206720AF2D357E3A0096970F /* Briefly */;
 			targetProxy = 206720C12D357E3D0096970F /* PBXContainerItemProxy */;
 		};
 		206720CC2D357E3D0096970F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 206720AF2D357E3A0096970F /* News points */;
+			target = 206720AF2D357E3A0096970F /* Briefly */;
 			targetProxy = 206720CB2D357E3D0096970F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -443,7 +443,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/News points.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/News points";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly";
 			};
 			name = Debug;
 		};
@@ -462,7 +462,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/News points.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/News points";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly";
 			};
 			name = Release;
 		};
@@ -503,7 +503,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		206720AB2D357E3A0096970F /* Build configuration list for PBXProject "News points" */ = {
+		206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D22D357E3D0096970F /* Debug */,
@@ -512,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "News points" */ = {
+		206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D52D357E3D0096970F /* Debug */,
@@ -521,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "News pointsTests" */ = {
+		206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D82D357E3D0096970F /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "News pointsUITests" */ = {
+		206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720DB2D357E3D0096970F /* Debug */,

@@ -15,3 +15,4 @@ struct News_pointsApp: App {
         }
     }
 }
+
