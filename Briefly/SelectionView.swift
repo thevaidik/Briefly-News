@@ -14,10 +14,11 @@ struct SelectionView: View {
     @State private var showingNews = false
     @State private var isLoading = false
     
+    let columns = [GridItem(.adaptive(minimum: 100), spacing: 10)]
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background gradient
                 LinearGradient(
                     colors: [Color.black, Color.gray.opacity(0.8)],
                     startPoint: .top,
@@ -25,7 +26,7 @@ struct SelectionView: View {
                 )
                 .ignoresSafeArea()
                 
-                VStack(spacing: 30) {
+                VStack(spacing: 20) {
                     // Header
                     Text("Explore News")
                         .font(.system(size: 40, weight: .bold))
@@ -37,20 +38,17 @@ struct SelectionView: View {
                         .font(.title3)
                         .foregroundColor(.white.opacity(0.8))
                     
-                    // Genre Picker
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(genres, id: \.self) { genre in
-                                GenreButton(
-                                    genre: genre,
-                                    isSelected: selectedGenre == genre,
-                                    action: { selectedGenre = genre }
-                                )
-                            }
+                    // Genre Picker in Grid
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(genres, id: \.self) { genre in
+                            GenreButton(
+                                genre: genre,
+                                isSelected: selectedGenre == genre,
+                                action: { selectedGenre = genre }
+                            )
                         }
-                        .padding(.horizontal)
                     }
-                    .padding(.vertical)
+                    .padding(.horizontal)
                     
                     Spacer()
                     
@@ -105,8 +103,8 @@ struct GenreButton: View {
             Text(genre)
                 .font(.system(size: 16, weight: isSelected ? .bold : .medium))
                 .foregroundColor(isSelected ? .white : .gray)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 25)
                         .fill(isSelected ? Color.blue : Color.white.opacity(0.1))
