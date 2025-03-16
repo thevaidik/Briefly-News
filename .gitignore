@@ -1,0 +1,53 @@
+# iOS
+## User settings
+xcuserdata/
+*.xcuserstate
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+*.xcodeproj
+
+# CocoaPods
+Pods/
+*.xcworkspace
+
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Android
+android/.gradle/
+android/build/
+android/local.properties
+android/*.iml
+android/.idea/
+android/app/build/
+android/captures/
+android/.externalNativeBuild/
+android/.cxx/
+android/app/release/
+android/app/debug/
+android/*.apk
+android/*.aab
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

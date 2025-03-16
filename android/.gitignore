@@ -1,0 +1,61 @@
+# Gradle files
+.gradle/
+build/
+local.properties
+
+# IntelliJ/Android Studio
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Android Studio generated files
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+output.json
+
+# Mac OS files
+.DS_Store
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Version control
+vcs.xml
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+
+# Android Profiling
+*.hprof
+
+# Generated files
+bin/
+gen/
+out/
+
+# Gradle wrapper
+!gradle-wrapper.jar
+
+# Room schemas
+schema/
