@@ -33,34 +33,45 @@ struct ErrorResponse: Codable {
 class NewsViewModel: ObservableObject {
     @Published var newsItems: [NewsItem] = []
     @Published var errorMessage: String?
+    @Published var isLoading: Bool = false
     
     func fetchNews(genre: String) async {
-        guard let url = URL(string: "https://m4vnpasso7.execute-api.ap-south-1.amazonaws.com/getnews/\(genre)") else {
+        isLoading = true
+        
+        var components = URLComponents(string: "https://m4vnpasso7.execute-api.ap-south-1.amazonaws.com/getnews/")
+        components?.path.append(genre.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? genre)
+        
+        guard let url = components?.url else {
+            DispatchQueue.main.async {
+                self.errorMessage = "Invalid URL"
+                self.isLoading = false
+            }
             return
         }
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            // Try to decode as error response first
             if let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
                 DispatchQueue.main.async {
                     self.errorMessage = errorResponse.error
                     self.newsItems = []
+                    self.isLoading = false
                 }
                 return
             }
             
-            // If not an error, decode as news response
             let response = try JSONDecoder().decode(NewsResponse.self, from: data)
             DispatchQueue.main.async {
                 self.errorMessage = nil
                 self.newsItems = response.news
+                self.isLoading = false
             }
         } catch {
             DispatchQueue.main.async {
                 self.errorMessage = "Failed to fetch news: \(error.localizedDescription)"
                 self.newsItems = []
+                self.isLoading = false
             }
         }
     }

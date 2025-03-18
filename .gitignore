@@ -1,29 +1,27 @@
 # iOS
-## User settings
+## User settings and state - SAFE TO IGNORE (these are user-specific)
 xcuserdata/
 *.xcuserstate
+UserInterfaceState.xcuserstate
 
-## App packaging
+## Build products - SAFE TO IGNORE (these are generated)
+build/
+DerivedData/
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-## Playgrounds
+## Playgrounds - SAFE TO IGNORE
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-.build/
-Packages/
-Package.pins
-Package.resolved
-*.xcodeproj
+# KEEP .xcodeproj files - THESE ARE IMPORTANT!
 
-# CocoaPods
-Pods/
-*.xcworkspace
+# CocoaPods - SAFE TO IGNORE if you're not using CocoaPods
+# Pods/
+# *.xcworkspace
 
-# Mac OS
+# Mac OS - SAFE TO IGNORE
 .DS_Store
 .AppleDouble
 .LSOverride

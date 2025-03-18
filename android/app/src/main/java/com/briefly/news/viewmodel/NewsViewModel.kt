@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface NewsApiService {
+interface NewsService {
     @GET("getnews/{genre}")
     suspend fun getNews(@Path("genre") genre: String): NewsResponse
 }
@@ -33,20 +33,22 @@ class NewsViewModel : ViewModel() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val newsService = retrofit.create(NewsApiService::class.java)
+    private val newsService = retrofit.create(NewsService::class.java)
 
-    fun fetchNews(genre: String) {
+    fun fetchNews(genre: String, onComplete: ((Boolean) -> Unit)? = null) {
         viewModelScope.launch {
             isLoading = true
             errorMessage = null
             try {
                 val response = newsService.getNews(genre)
                 newsItems = response.news
+                isLoading = false
+                onComplete?.invoke(true)
             } catch (e: Exception) {
                 errorMessage = "Failed to fetch news: ${e.localizedMessage}"
                 newsItems = emptyList()
-            } finally {
                 isLoading = false
+                onComplete?.invoke(false)
             }
         }
     }

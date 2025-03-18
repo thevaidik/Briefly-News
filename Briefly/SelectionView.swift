@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectionView: View {
     private let genres = ["technology", "business", "sports", "entertainment", "science", "world", "health", "ai", "hollywood", "defence", "politics", "automobile", "space", "economy"]
-    private let columns = [GridItem(.adaptive(minimum: 100), spacing: 10)]
+    private let columns = [GridItem(.adaptive(minimum: 120), spacing: 8)]
     
     @State private var selectedGenre = "bollywood"
     @State private var showingNews = false
@@ -33,7 +33,7 @@ struct SelectionView: View {
                         .font(.title3)
                         .foregroundColor(.white.opacity(0.8))
                     
-                    LazyVGrid(columns: columns, spacing: 10) {
+                    LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(genres, id: \.self) { genre in
                             GenreButton(
                                 genre: genre,
@@ -94,16 +94,20 @@ struct GenreButton: View {
     var body: some View {
         Button(action: action) {
             Text(genre)
-                .font(.system(size: 16, weight: isSelected ? .bold : .medium))
+                .font(.system(size: 14, weight: isSelected ? .bold : .medium))
                 .foregroundColor(isSelected ? .white : .gray)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 10)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .frame(minWidth: 80)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
                 .background(
                     RoundedRectangle(cornerRadius: 25)
                         .fill(isSelected ? Color.blue : Color.white.opacity(0.1))
                         .stroke(isSelected ? Color.blue.opacity(0.5) : Color.clear, lineWidth: 2)
                 )
         }
+        .frame(height: 36)
         .shadow(radius: isSelected ? 5 : 0)
     }
 }
