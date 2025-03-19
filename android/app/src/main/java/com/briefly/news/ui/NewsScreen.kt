@@ -57,7 +57,7 @@ fun NewsScreen(
                     )
                 )
             )
-        )
+    ) {
         Column(modifier = Modifier.fillMaxSize()) {
             // Custom Navigation Bar
             CustomNavigationBar(
@@ -96,21 +96,48 @@ fun NewsScreen(
                     }
                     
                     // Add tap-to-load more button
-                    item {
-                        if (viewModel.nextCursor != null) {
-                            LoadMoreButton(
-                                onClick = { 
-                                    viewModel.fetchMoreNews(selectedGenre)
-                                },
-                                isLoading = viewModel.isLoadingMore
-                            )
-                        } else {
-                            Spacer(modifier = Modifier.height(48.dp))
+                    if (viewModel.nextCursor != null) {
+                        item {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                                    .clickable {
+                                        viewModel.fetchMoreNews(selectedGenre)
+                                    },
+                                shape = RoundedCornerShape(12.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color.White.copy(alpha = 0.15f)
+                                )
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(50.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    if (viewModel.isLoadingMore) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(24.dp),
+                                            color = Color.White,
+                                            strokeWidth = 2.dp
+                                        )
+                                    } else {
+                                        Text(
+                                            text = "Tap to Load More",
+                                            color = Color.White.copy(alpha = 0.9f),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+    }
 }
 
 @Composable
@@ -284,50 +311,5 @@ private fun formatPublishedDate(dateString: String): String {
         "$day, $date $month $hour:$minute"
     } catch (e: Exception) {
         dateString // Return original string if parsing fails
-    }
-}
-
-@Composable
-fun LoadMoreButton(
-    onClick: () -> Unit,
-    isLoading: Boolean
-) {
-    Button(
-        onClick = onClick,
-        enabled = !isLoading,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White.copy(alpha = 0.15f), // Glass effect
-            disabledContainerColor = Color.White.copy(alpha = 0.15f)
-        ),
-        border = BorderStroke(
-            width = 1.dp,
-            color = Color.White.copy(alpha = 0.2f)
-        )
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = Color.White,
-                    strokeWidth = 2.dp
-                )
-            } else {
-                Text(
-                    text = "Tap to Load More",
-                    color = Color.White.copy(alpha = 0.9f),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        }
     }
 }
