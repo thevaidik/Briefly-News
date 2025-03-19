@@ -5,8 +5,8 @@ class NewsViewModel: ObservableObject {
     @Published var isLoadingMore = false
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var nextCursor: String?
     
-    private var nextCursor: String?
     private let baseURL = "https://qo6syrle6dnzs627xkjcyl7ol40ombnx.lambda-url.ap-south-1.on.aws"
     
     func fetchNews(genre: String) async {

@@ -11,7 +11,7 @@ struct SelectionView: View {
     private let genres = ["technology", "business", "sports", "entertainment", "science", "world", "health", "ai", "hollywood", "defence", "politics", "automobile", "space", "economy"]
     private let columns = [GridItem(.adaptive(minimum: 120), spacing: 8)]
     
-    @State private var selectedGenre = "defence"
+    @State private var selectedGenre = "technology"
     @State private var showingNews = false
     @State private var isLoading = false
     @StateObject private var viewModel = NewsViewModel()

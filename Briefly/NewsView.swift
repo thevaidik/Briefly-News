@@ -6,10 +6,43 @@
 //
 import SwiftUI
 
+struct GlassButton: View {
+    let title: String
+    let isLoading: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.15)) // Glass effect
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+                
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.0)
+                } else {
+                    Text(title)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white.opacity(0.9))
+                }
+            }
+            .frame(height: 50)
+            .padding(.horizontal, 16)
+        }
+        .disabled(isLoading)
+    }
+}
+
 struct NewsView: View {
-    @ObservedObject var viewModel: NewsViewModel
+    @StateObject var viewModel: NewsViewModel
     let selectedGenre: String
     @Environment(\.dismiss) private var dismiss
+    @State private var showLoadMore = false
     
     var body: some View {
         ZStack {
@@ -49,45 +82,26 @@ struct NewsView: View {
                 .background(Color.black.opacity(0.01))
                 
                 // Content
-                Group {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                            .scaleEffect(1.2)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else if let error = viewModel.errorMessage {
-                        VStack(spacing: 16) {
-                            Text(error)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            
-                            Button("Retry") {
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(viewModel.news) { item in
+                            NewsItemView(item: item)
+                        }
+                        
+                        // Replace existing load more section with new button
+                        if viewModel.nextCursor != nil {
+                            GlassButton(
+                                title: "Tap to Load More",
+                                isLoading: viewModel.isLoadingMore
+                            ) {
                                 Task {
-                                    await viewModel.fetchNews(genre: selectedGenre)
+                                    await viewModel.fetchMoreNews(genre: selectedGenre)
                                 }
                             }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 12)
-                            .background(Color.blue)
-                            .cornerRadius(8)
+                            .padding(.vertical, 16)
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        List(viewModel.news) { item in
-                            NewsItemView(item: item)
-                                .onAppear {
-                                    // If this is one of the last items, fetch more
-                                    if item.id == viewModel.news.last?.id {
-                                        Task {
-                                            await viewModel.fetchMoreNews(genre: selectedGenre)
-                                        }
-                                    }
-                                }
-                        }
-                        .listStyle(.plain)
                     }
+                    .padding(.horizontal)
                 }
             }
         }

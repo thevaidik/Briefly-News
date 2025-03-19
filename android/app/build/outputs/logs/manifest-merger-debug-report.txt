@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-20:12
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:2:1-22:12
 MERGED from [androidx.navigation:navigation-common:2.7.7] /Users/vaidikdubey/.gradle/caches/8.13/transforms/8fa570b77f71003b86ce578d8ab1b40a/transformed/navigation-common-2.7.7/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.7] /Users/vaidikdubey/.gradle/caches/8.13/transforms/ac9db82847beb88c9e91e572e64bd035/transformed/navigation-runtime-2.7.7/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.7.7] /Users/vaidikdubey/.gradle/caches/8.13/transforms/b47b55a562c4729f53e0044ca6b7f1c8/transformed/navigation-common-ktx-2.7.7/AndroidManifest.xml:2:1-7:12
@@ -67,8 +67,8 @@ ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidM
 	android:name
 		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:3:22-64
 application
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:5:5-19:19
-INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:5:5-19:19
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:5:5-21:19
+INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:5:5-21:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5c5fbbcf685520537ff9d35f221cbf0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5c5fbbcf685520537ff9d35f221cbf0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/44a2ecb37f098cbaa0eb2052bc501a0e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
@@ -93,28 +93,32 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/vaidikdubey/.gradle/
 		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:8:9-35
 	android:label
 		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:7:9-41
+	android:roundIcon
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:11:9-48
+	android:icon
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:10:9-43
 	android:allowBackup
 		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:6:9-35
 	android:theme
 		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:9:9-45
 activity#com.briefly.news.MainActivity
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:10:9-18:20
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:12:9-20:20
 	android:exported
-		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:12:13-36
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:14:13-36
 	android:theme
-		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:13:13-49
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:15:13-49
 	android:name
-		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:11:13-41
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:13:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:14:13-17:29
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:16:13-19:29
 action#android.intent.action.MAIN
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:15:17-69
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:17:17-69
 	android:name
-		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:15:25-66
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:17:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:16:17-77
+ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:18:17-77
 	android:name
-		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:16:27-74
+		ADDED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml:18:27-74
 uses-sdk
 INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/vaidikdubey/Develop/Briefly-News/android/app/src/main/AndroidManifest.xml

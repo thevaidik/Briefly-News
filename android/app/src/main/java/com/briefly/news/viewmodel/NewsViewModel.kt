@@ -35,7 +35,8 @@ class NewsViewModel : ViewModel() {
     var isLoadingMore by mutableStateOf(false)
         private set
     
-    private var nextCursor: String? = null
+    var nextCursor by mutableStateOf<String?>(null)
+        private set
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://qo6syrle6dnzs627xkjcyl7ol40ombnx.lambda-url.ap-south-1.on.aws/")

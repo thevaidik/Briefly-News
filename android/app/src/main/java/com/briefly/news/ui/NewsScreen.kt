@@ -27,11 +27,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.TextStyle
 import com.briefly.news.data.NewsItem
 import com.briefly.news.data.NewsPoint
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.foundation.BorderStroke
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,34 +43,8 @@ fun NewsScreen(
     selectedGenre: String,
     onNavigateUp: () -> Unit
 ) {
-    val lazyListState = rememberLazyListState()
-    
-    // Check if we should load more items
-    val shouldLoadMore = remember {
-        derivedStateOf {
-            val visibleItemsInfo = lazyListState.layoutInfo.visibleItemsInfo
-            if (visibleItemsInfo.isEmpty()) {
-                false
-            } else {
-                val lastVisibleItem = visibleItemsInfo.last()
-                lastVisibleItem.index >= viewModel.newsItems.size - 3 && !viewModel.isLoadingMore
-            }
-        }
-    }
-    
-    // Load more when we reach the end
-    LaunchedEffect(shouldLoadMore.value) {
-        if (shouldLoadMore.value) {
-            viewModel.fetchMoreNews(selectedGenre)
-        }
-    }
-    
-    // Initial load
-    LaunchedEffect(selectedGenre) {
-        viewModel.fetchNews(selectedGenre)
-    }
-    
-    val uriHandler = LocalUriHandler.current
+    val listState = rememberLazyListState()
+    var showLoadMore by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -80,7 +57,7 @@ fun NewsScreen(
                     )
                 )
             )
-    ) {
+        )
         Column(modifier = Modifier.fillMaxSize()) {
             // Custom Navigation Bar
             CustomNavigationBar(
@@ -106,7 +83,7 @@ fun NewsScreen(
                 )
             } else {
                 LazyColumn(
-                    state = lazyListState,
+                    state = listState,
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxSize()
@@ -118,25 +95,22 @@ fun NewsScreen(
                         NewsItemView(item = newsItem)
                     }
                     
+                    // Add tap-to-load more button
                     item {
-                        if (viewModel.isLoadingMore) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(
-                                    color = Color.White,
-                                    modifier = Modifier.size(32.dp)
-                                )
-                            }
+                        if (viewModel.nextCursor != null) {
+                            LoadMoreButton(
+                                onClick = { 
+                                    viewModel.fetchMoreNews(selectedGenre)
+                                },
+                                isLoading = viewModel.isLoadingMore
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.height(48.dp))
                         }
                     }
                 }
             }
         }
-    }
 }
 
 @Composable
@@ -310,5 +284,50 @@ private fun formatPublishedDate(dateString: String): String {
         "$day, $date $month $hour:$minute"
     } catch (e: Exception) {
         dateString // Return original string if parsing fails
+    }
+}
+
+@Composable
+fun LoadMoreButton(
+    onClick: () -> Unit,
+    isLoading: Boolean
+) {
+    Button(
+        onClick = onClick,
+        enabled = !isLoading,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White.copy(alpha = 0.15f), // Glass effect
+            disabledContainerColor = Color.White.copy(alpha = 0.15f)
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = Color.White.copy(alpha = 0.2f)
+        )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    color = Color.White,
+                    strokeWidth = 2.dp
+                )
+            } else {
+                Text(
+                    text = "Tap to Load More",
+                    color = Color.White.copy(alpha = 0.9f),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+        }
     }
 }
