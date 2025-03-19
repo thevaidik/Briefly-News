@@ -28,9 +28,15 @@ struct NewsView: View {
                     
                     Spacer()
                     
-                    Text("\(selectedGenre) News")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
+                    VStack(spacing: 2) {
+                        Text("\(selectedGenre) News")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.white)
+                        
+                        Text("Updated Daily")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
                     
                     Spacer()
                     
@@ -118,17 +124,17 @@ struct NewsItemView: View {
                         
                         Spacer()
                         
-                        Text(firstPoint.publishedAt)
+                        Text(formatPublishedDate(firstPoint.publishedAt))
                             .font(.system(size: 11))
                             .foregroundColor(.gray)
                     }
-                }
-                
-                HStack {
-                    Text("Read more")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
-                    Spacer()
+                    
+                    HStack {
+                        Text("Read more")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
+                        Spacer()
+                    }
                 }
             }
             .padding(12)
@@ -136,5 +142,29 @@ struct NewsItemView: View {
             .cornerRadius(8)
             .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
         }
+    }
+    
+    private func formatPublishedDate(_ dateString: String) -> String {
+        // Example: "Tue, 18 Mar 2025 16:52:09 +00"
+        let components = dateString.components(separatedBy: " ")
+        
+        guard components.count >= 5 else {
+            return dateString
+        }
+        
+        let day = components[0].replacingOccurrences(of: ",", with: "")
+        let date = components[1]
+        let month = components[2]
+        
+        // Get just HH:MM from the time part
+        let timeParts = components[4].components(separatedBy: ":")
+        guard timeParts.count >= 2 else {
+            return dateString
+        }
+        
+        let hour = timeParts[0]
+        let minute = timeParts[1]
+        
+        return "\(day), \(date) \(month) \(hour):\(minute)"
     }
 }

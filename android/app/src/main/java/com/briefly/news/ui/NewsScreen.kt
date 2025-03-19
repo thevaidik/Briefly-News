@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.TextStyle
 import com.briefly.news.data.NewsItem
 import com.briefly.news.data.NewsPoint
+import androidx.compose.foundation.clickable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -140,34 +141,44 @@ fun NewsScreen(
 
 @Composable
 fun CustomNavigationBar(title: String, onBackClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(44.dp)
-            .background(Color.Black.copy(alpha = 0.01f)),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        IconButton(onClick = onBackClick) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
-                tint = Color.White
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(44.dp)
+                .background(Color.Black.copy(alpha = 0.01f)),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Color.White
+                )
+            }
+            
+            Spacer(modifier = Modifier.weight(1f))
+            
+            Text(
+                text = title,
+                color = Color.White,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold
             )
+            
+            Spacer(modifier = Modifier.weight(1f))
+            
+            // Empty space for balance
+            Spacer(modifier = Modifier.width(48.dp))
         }
         
-        Spacer(modifier = Modifier.weight(1f))
-        
+        // Add Updated Daily text
         Text(
-            text = title,
-            color = Color.White,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.SemiBold
+            text = "Updated Daily",
+            color = Color.White.copy(alpha = 0.7f),
+            fontSize = 12.sp,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        
-        Spacer(modifier = Modifier.weight(1f))
-        
-        // Empty space for balance
-        Spacer(modifier = Modifier.width(48.dp))
     }
 }
 
@@ -238,14 +249,14 @@ fun NewsItemView(item: NewsItem) {
 @Composable
 fun NewsPointView(point: NewsPoint, uriHandler: androidx.compose.ui.platform.UriHandler) {
     Column {
-        // Description - added maxLines and overflow parameters
+        // Description
         Text(
             text = point.description,
             color = Color.White.copy(alpha = 0.9f),
             fontSize = 14.sp,
             modifier = Modifier.padding(bottom = 8.dp),
-            maxLines = 2,  // Limit to 2 lines
-            overflow = TextOverflow.Ellipsis  // Add ellipsis for text that's too long
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
         
         // Source and date info
@@ -261,24 +272,43 @@ fun NewsPointView(point: NewsPoint, uriHandler: androidx.compose.ui.platform.Uri
             )
             
             Text(
-                text = point.publishedAt,
+                text = formatPublishedDate(point.publishedAt),
                 color = Color.White.copy(alpha = 0.7f),
                 fontSize = 12.sp
             )
         }
         
-        // Read more button
-        Button(
-            onClick = { uriHandler.openUri(point.url) },
+        // Replace Button with Text for a more compact "Read more"
+        Text(
+            text = "Read more",
+            color = Color(0xFF007AFF),  // iOS blue
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier
                 .padding(top = 8.dp)
-                .align(Alignment.End),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Blue.copy(alpha = 0.8f)
-            ),
-            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
-        ) {
-            Text("Read More", fontSize = 12.sp)
-        }
+                .align(Alignment.Start)  // Align to start like iOS
+                .clickable { uriHandler.openUri(point.url) }
+        )
+    }
+}
+
+// Update the date formatting function to keep only day, date and HH:MM
+private fun formatPublishedDate(dateString: String): String {
+    return try {
+        // Example: "Tue, 18 Mar 2025 16:52:09 +00"
+        // Extract day and date part
+        val parts = dateString.split(" ")
+        val day = parts[0].replace(",", "") // "Tue"
+        val date = parts[1] // "18"
+        val month = parts[2] // "Mar"
+        
+        // Extract time part - keep only HH:MM
+        val timeParts = parts[4].split(":")
+        val hour = timeParts[0] // "16"
+        val minute = timeParts[1] // "52"
+        
+        "$day, $date $month $hour:$minute"
+    } catch (e: Exception) {
+        dateString // Return original string if parsing fails
     }
 }
