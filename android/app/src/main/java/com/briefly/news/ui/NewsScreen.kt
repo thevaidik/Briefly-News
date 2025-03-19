@@ -4,9 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +21,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.briefly.news.viewmodel.NewsViewModel
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.TextStyle
+import com.briefly.news.data.NewsItem
+import com.briefly.news.data.NewsPoint
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,6 +39,33 @@ fun NewsScreen(
     selectedGenre: String,
     onNavigateUp: () -> Unit
 ) {
+    val lazyListState = rememberLazyListState()
+    
+    // Check if we should load more items
+    val shouldLoadMore = remember {
+        derivedStateOf {
+            val visibleItemsInfo = lazyListState.layoutInfo.visibleItemsInfo
+            if (visibleItemsInfo.isEmpty()) {
+                false
+            } else {
+                val lastVisibleItem = visibleItemsInfo.last()
+                lastVisibleItem.index >= viewModel.newsItems.size - 3 && !viewModel.isLoadingMore
+            }
+        }
+    }
+    
+    // Load more when we reach the end
+    LaunchedEffect(shouldLoadMore.value) {
+        if (shouldLoadMore.value) {
+            viewModel.fetchMoreNews(selectedGenre)
+        }
+    }
+    
+    // Initial load
+    LaunchedEffect(selectedGenre) {
+        viewModel.fetchNews(selectedGenre)
+    }
+    
     val uriHandler = LocalUriHandler.current
 
     Box(
@@ -42,164 +80,205 @@ fun NewsScreen(
                 )
             )
     ) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            containerColor = Color.Transparent,
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { 
-                        Text(
-                            text = "$selectedGenre News",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onNavigateUp) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.White
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = Color.Transparent,
-                        titleContentColor = Color.White,
-                        navigationIconContentColor = Color.White
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Custom Navigation Bar
+            CustomNavigationBar(
+                title = "$selectedGenre News",
+                onBackClick = onNavigateUp
+            )
+            
+            // Content
+            if (viewModel.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(48.dp)
                     )
+                }
+            } else if (viewModel.errorMessage != null) {
+                ErrorView(
+                    errorMessage = viewModel.errorMessage!!,
+                    onRetry = { viewModel.fetchNews(selectedGenre) }
                 )
-            }
-        ) { padding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            ) {
-                when {
-                    viewModel.errorMessage != null -> {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = viewModel.errorMessage!!,
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            Button(
-                                onClick = { viewModel.fetchNews(selectedGenre) },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF007AFF)
-                                )
+            } else {
+                LazyColumn(
+                    state = lazyListState,
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(
+                        items = viewModel.newsItems,
+                        key = { it.id }
+                    ) { newsItem ->
+                        NewsItemView(item = newsItem)
+                    }
+                    
+                    item {
+                        if (viewModel.isLoadingMore) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                Text("Retry", color = Color.White)
-                            }
-                        }
-                    }
-                    viewModel.newsItems.isEmpty() -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator(
-                                color = Color.White
-                            )
-                        }
-                    }
-                    else -> {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(
-                                horizontal = 16.dp,
-                                vertical = 8.dp
-                            ),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            items(viewModel.newsItems) { item ->
-                                Card(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .shadow(
-                                            elevation = 2.dp,
-                                            shape = RoundedCornerShape(8.dp)
-                                        ),
-                                    shape = RoundedCornerShape(8.dp),
-                                    colors = CardDefaults.cardColors(
-                                        containerColor = Color(0xFF1C1C1E)
-                                    )
-                                ) {
-                                    Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(12.dp),
-                                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                                    ) {
-                                        Text(
-                                            text = item.title,
-                                            fontSize = 15.sp,
-                                            fontWeight = FontWeight.SemiBold,
-                                            color = Color.White,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                        
-                                        Text(
-                                            text = item.description,
-                                            fontSize = 13.sp,
-                                            color = Color.Gray,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                        
-                                        Row(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            horizontalArrangement = Arrangement.SpaceBetween,
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Text(
-                                                text = item.source,
-                                                fontSize = 12.sp,
-                                                color = Color(0xFF0A84FF),
-                                                maxLines = 1,
-                                                overflow = TextOverflow.Ellipsis,
-                                                modifier = Modifier.weight(1f)
-                                            )
-                                            
-                                            Spacer(modifier = Modifier.width(8.dp))
-                                            
-                                            Text(
-                                                text = item.pubDate,
-                                                fontSize = 11.sp,
-                                                color = Color.Gray,
-                                                maxLines = 1
-                                            )
-                                        }
-                                        
-                                        TextButton(
-                                            onClick = { uriHandler.openUri(item.link) },
-                                            contentPadding = PaddingValues(0.dp),
-                                            modifier = Modifier.offset(x = (-8).dp)
-                                        ) {
-                                            Text(
-                                                text = "Read more",
-                                                fontSize = 12.sp,
-                                                color = Color(0xFF0A84FF),
-                                                fontWeight = FontWeight.Medium
-                                            )
-                                        }
-                                    }
-                                }
+                                CircularProgressIndicator(
+                                    color = Color.White,
+                                    modifier = Modifier.size(32.dp)
+                                )
                             }
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun CustomNavigationBar(title: String, onBackClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(44.dp)
+            .background(Color.Black.copy(alpha = 0.01f)),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = onBackClick) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "Back",
+                tint = Color.White
+            )
+        }
+        
+        Spacer(modifier = Modifier.weight(1f))
+        
+        Text(
+            text = title,
+            color = Color.White,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        
+        Spacer(modifier = Modifier.weight(1f))
+        
+        // Empty space for balance
+        Spacer(modifier = Modifier.width(48.dp))
+    }
+}
+
+@Composable
+fun ErrorView(errorMessage: String, onRetry: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = errorMessage,
+            color = Color.White,
+            textAlign = TextAlign.Center
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Button(onClick = onRetry) {
+            Text("Retry")
+        }
+    }
+}
+
+@Composable
+fun NewsItemView(item: NewsItem) {
+    val uriHandler = LocalUriHandler.current
+    
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(4.dp, RoundedCornerShape(12.dp)),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Black.copy(alpha = 0.7f)
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            // Title
+            Text(
+                text = item.title,
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+            
+            // Points
+            item.points.forEachIndexed { index, point ->
+                if (index > 0) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Divider(color = Color.Gray.copy(alpha = 0.3f))
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+                
+                NewsPointView(point = point, uriHandler = uriHandler)
+            }
+        }
+    }
+}
+
+@Composable
+fun NewsPointView(point: NewsPoint, uriHandler: androidx.compose.ui.platform.UriHandler) {
+    Column {
+        // Description - added maxLines and overflow parameters
+        Text(
+            text = point.description,
+            color = Color.White.copy(alpha = 0.9f),
+            fontSize = 14.sp,
+            modifier = Modifier.padding(bottom = 8.dp),
+            maxLines = 2,  // Limit to 2 lines
+            overflow = TextOverflow.Ellipsis  // Add ellipsis for text that's too long
+        )
+        
+        // Source and date info
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Source: ${point.source}",
+                color = Color.White.copy(alpha = 0.7f),
+                fontSize = 12.sp
+            )
+            
+            Text(
+                text = point.publishedAt,
+                color = Color.White.copy(alpha = 0.7f),
+                fontSize = 12.sp
+            )
+        }
+        
+        // Read more button
+        Button(
+            onClick = { uriHandler.openUri(point.url) },
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .align(Alignment.End),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Blue.copy(alpha = 0.8f)
+            ),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+        ) {
+            Text("Read More", fontSize = 12.sp)
         }
     }
 }

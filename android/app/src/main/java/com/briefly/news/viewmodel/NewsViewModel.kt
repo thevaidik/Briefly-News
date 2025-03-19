@@ -12,10 +12,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface NewsService {
-    @GET("getnews/{genre}")
+    @GET("news/{genre}")
     suspend fun getNews(@Path("genre") genre: String): NewsResponse
+    
+    @GET("news/{genre}")
+    suspend fun getNewsWithCursor(@Path("genre") genre: String, @Query("cursor") cursor: String): NewsResponse
 }
 
 class NewsViewModel : ViewModel() {
@@ -27,9 +31,14 @@ class NewsViewModel : ViewModel() {
         
     var isLoading by mutableStateOf(false)
         private set
+        
+    var isLoadingMore by mutableStateOf(false)
+        private set
+    
+    private var nextCursor: String? = null
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://m4vnpasso7.execute-api.ap-south-1.amazonaws.com/")
+        .baseUrl("https://qo6syrle6dnzs627xkjcyl7ol40ombnx.lambda-url.ap-south-1.on.aws/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -39,15 +48,43 @@ class NewsViewModel : ViewModel() {
         viewModelScope.launch {
             isLoading = true
             errorMessage = null
+            newsItems = emptyList()
+            nextCursor = null
+            
             try {
                 val response = newsService.getNews(genre)
                 newsItems = response.news
+                nextCursor = response.nextCursor
                 isLoading = false
                 onComplete?.invoke(true)
             } catch (e: Exception) {
                 errorMessage = "Failed to fetch news: ${e.localizedMessage}"
                 newsItems = emptyList()
                 isLoading = false
+                onComplete?.invoke(false)
+            }
+        }
+    }
+    
+    fun fetchMoreNews(genre: String, onComplete: ((Boolean) -> Unit)? = null) {
+        if (isLoadingMore || nextCursor == null) {
+            onComplete?.invoke(false)
+            return
+        }
+        
+        viewModelScope.launch {
+            isLoadingMore = true
+            
+            try {
+                val cursor = nextCursor!!
+                val response = newsService.getNewsWithCursor(genre, cursor)
+                newsItems = newsItems + response.news
+                nextCursor = response.nextCursor
+                isLoadingMore = false
+                onComplete?.invoke(true)
+            } catch (e: Exception) {
+                errorMessage = "Failed to load more news: ${e.localizedMessage}"
+                isLoadingMore = false
                 onComplete?.invoke(false)
             }
         }

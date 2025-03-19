@@ -31,7 +31,7 @@ fun SelectionScreen(
         "automobile", "space", "economy"
     )
     
-    var selectedGenre by remember { mutableStateOf("bollywood") }
+    var selectedGenre by remember { mutableStateOf("defence") }
     var isLoading by remember { mutableStateOf(false) }
 
     Box(

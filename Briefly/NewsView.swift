@@ -69,15 +69,18 @@ struct NewsView: View {
                         .padding()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
-                        ScrollView {
-                            LazyVStack(spacing: 12) {
-                                ForEach(viewModel.newsItems) { item in
-                                    NewsItemCard(newsItem: item)
+                        List(viewModel.news) { item in
+                            NewsItemView(item: item)
+                                .onAppear {
+                                    // If this is one of the last items, fetch more
+                                    if item.id == viewModel.news.last?.id {
+                                        Task {
+                                            await viewModel.fetchMoreNews(genre: selectedGenre)
+                                        }
+                                    }
                                 }
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
                         }
+                        .listStyle(.plain)
                     }
                 }
             }
@@ -90,33 +93,35 @@ struct NewsView: View {
     }
 }
 
-struct NewsItemCard: View {
-    let newsItem: NewsItem
+struct NewsItemView: View {
+    let item: NewsItem
     
     var body: some View {
-        Link(destination: URL(string: newsItem.link)!) {
+        Link(destination: URL(string: item.points.first?.url ?? "")!) {
             VStack(alignment: .leading, spacing: 6) {
-                Text(newsItem.title)
+                Text(item.title)
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.white)
                     .lineLimit(2)
                 
-                Text(newsItem.description)
-                    .font(.system(size: 13))
-                    .foregroundColor(.gray)
-                    .lineLimit(2)
-                
-                HStack {
-                    Text(newsItem.source)
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
-                        .lineLimit(1)
-                    
-                    Spacer()
-                    
-                    Text(newsItem.pubDate)
-                        .font(.system(size: 11))
+                if let firstPoint = item.points.first {
+                    Text(firstPoint.description)
+                        .font(.system(size: 13))
                         .foregroundColor(.gray)
+                        .lineLimit(2)
+                    
+                    HStack {
+                        Text(firstPoint.source)
+                            .font(.system(size: 12))
+                            .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
+                            .lineLimit(1)
+                        
+                        Spacer()
+                        
+                        Text(firstPoint.publishedAt)
+                            .font(.system(size: 11))
+                            .foregroundColor(.gray)
+                    }
                 }
                 
                 HStack {
