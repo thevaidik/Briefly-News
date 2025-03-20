@@ -83,11 +83,11 @@
 50                android:value="androidx.startup" />
 50-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/44a2ecb37f098cbaa0eb2052bc501a0e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
 51            <meta-data
-51-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+51-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
 52                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-52-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+52-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
 53                android:value="androidx.startup" />
-53-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+53-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
 54        </provider>
 55
 56        <activity
@@ -104,40 +104,40 @@
 61-->[androidx.compose.ui:ui-tooling-android:1.6.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/d0663600af99f22ab96fcf13a70f7243/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
 62
 63        <receiver
-63-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+63-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
 64            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-64-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+64-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
 65            android:directBootAware="false"
-65-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+65-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
 66            android:enabled="true"
-66-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+66-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
 67            android:exported="true"
-67-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+67-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
 68            android:permission="android.permission.DUMP" >
-68-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+68-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
 69            <intent-filter>
-69-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+69-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
 70                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-70-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
-70-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+70-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+70-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
 71            </intent-filter>
 72            <intent-filter>
-72-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+72-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
 73                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-73-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
-73-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+73-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+73-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
 74            </intent-filter>
 75            <intent-filter>
-75-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
 76                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
-76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
 77            </intent-filter>
 78            <intent-filter>
-78-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
 79                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-79-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
-79-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/vaidikdubey/.gradle/caches/8.13/transforms/f5e1b8b9e64847464d6edc8ca8b93ca9/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/vaidikdubey/.gradle/caches/8.13/transforms/39e3eba247c266346f98c07887feb814/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
 80            </intent-filter>
 81        </receiver>
 82    </application>

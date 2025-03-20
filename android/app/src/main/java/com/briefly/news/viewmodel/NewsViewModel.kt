@@ -56,6 +56,7 @@ class NewsViewModel : ViewModel() {
                 val response = newsService.getNews(genre)
                 newsItems = response.news
                 nextCursor = response.nextCursor
+                println("DEBUG: Fetched news, nextCursor: $nextCursor")
                 isLoading = false
                 onComplete?.invoke(true)
             } catch (e: Exception) {
@@ -69,6 +70,7 @@ class NewsViewModel : ViewModel() {
     
     fun fetchMoreNews(genre: String, onComplete: ((Boolean) -> Unit)? = null) {
         if (isLoadingMore || nextCursor == null) {
+            println("DEBUG: fetchMoreNews called but isLoadingMore=$isLoadingMore or nextCursor is null")
             onComplete?.invoke(false)
             return
         }
@@ -78,9 +80,11 @@ class NewsViewModel : ViewModel() {
             
             try {
                 val cursor = nextCursor!!
+                println("DEBUG: Fetching more news with cursor: $cursor")
                 val response = newsService.getNewsWithCursor(genre, cursor)
                 newsItems = newsItems + response.news
                 nextCursor = response.nextCursor
+                println("DEBUG: Fetched more news, new nextCursor: $nextCursor")
                 isLoadingMore = false
                 onComplete?.invoke(true)
             } catch (e: Exception) {

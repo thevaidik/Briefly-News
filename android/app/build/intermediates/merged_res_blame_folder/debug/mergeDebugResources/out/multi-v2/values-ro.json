@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.briefly.news.app-mergeDebugResources-48:/values-ro/values-ro.xml",
+            "outputFile": "com.briefly.news.app-mergeDebugResources-50:/values-ro/values-ro.xml",
             "map": [
                 {
                     "source": "/Users/vaidikdubey/.gradle/caches/8.13/transforms/e30ebf500f067cd595786ad83efd3525/transformed/jetified-material3-release/res/values-ro/values-ro.xml",

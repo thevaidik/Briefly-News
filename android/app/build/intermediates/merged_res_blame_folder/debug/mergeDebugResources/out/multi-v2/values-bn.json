@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.briefly.news.app-mergeDebugResources-48:/values-bn/values-bn.xml",
+            "outputFile": "com.briefly.news.app-mergeDebugResources-50:/values-bn/values-bn.xml",
             "map": [
                 {
                     "source": "/Users/vaidikdubey/.gradle/caches/8.13/transforms/d6aee619c00619be48bc8b5a61140989/transformed/jetified-foundation-release/res/values-bn/values-bn.xml",

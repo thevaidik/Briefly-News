@@ -1,5 +1,13 @@
 R_DEF: Internal format may change without notice
 local
+attr colorBackground
+attr colorPrimary
+attr colorSecondary
+color colorBackground
+color colorPrimary
+color colorSecondary
+color colorText
+color colorTextSecondary
 color ic_launcher_background
 drawable ic_launcher_foreground
 mipmap ic_launcher

@@ -44,7 +44,6 @@ fun NewsScreen(
     onNavigateUp: () -> Unit
 ) {
     val listState = rememberLazyListState()
-    var showLoadMore by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -107,7 +106,7 @@ fun NewsScreen(
                                     },
                                 shape = RoundedCornerShape(12.dp),
                                 colors = CardDefaults.cardColors(
-                                    containerColor = Color.White.copy(alpha = 0.15f)
+                                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.15f)
                                 )
                             ) {
                                 Box(
@@ -119,13 +118,13 @@ fun NewsScreen(
                                     if (viewModel.isLoadingMore) {
                                         CircularProgressIndicator(
                                             modifier = Modifier.size(24.dp),
-                                            color = Color.White,
+                                            color = MaterialTheme.colorScheme.primary,
                                             strokeWidth = 2.dp
                                         )
                                     } else {
                                         Text(
                                             text = "Tap to Load More",
-                                            color = Color.White.copy(alpha = 0.9f),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Medium
                                         )

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.briefly.news.app-mergeDebugResources-48:/values-en-rIN/values-en-rIN.xml",
+            "outputFile": "com.briefly.news.app-mergeDebugResources-50:/values-en-rIN/values-en-rIN.xml",
             "map": [
                 {
                     "source": "/Users/vaidikdubey/.gradle/caches/8.13/transforms/42599d2e79af83a58c00539ca5d87760/transformed/jetified-ui-release/res/values-en-rIN/values-en-rIN.xml",
