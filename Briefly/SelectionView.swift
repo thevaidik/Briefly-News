@@ -13,6 +13,7 @@ struct SelectionView: View {
     
     @State private var selectedGenre = "technology"
     @State private var showingNews = false
+    @State private var showingContact = false
     @State private var isLoading = false
     @StateObject private var viewModel = NewsViewModel()
     
@@ -47,10 +48,27 @@ struct SelectionView: View {
                     Spacer()
                     
                     generateButton
+                    
+                    // Contact Us button
+                    Button {
+                        showingContact = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "envelope.fill")
+                                .font(.system(size: 16))
+                            Text("Contact Us")
+                                .font(.subheadline)
+                        }
+                        .foregroundColor(.white.opacity(0.8))
+                    }
+                    .padding(.bottom, 20)
                 }
             }
             .navigationDestination(isPresented: $showingNews) {
                 NewsView(viewModel: viewModel, selectedGenre: selectedGenre)
+            }
+            .navigationDestination(isPresented: $showingContact) {
+                ContactView()
             }
         }
     }
@@ -82,7 +100,7 @@ struct SelectionView: View {
         }
         .disabled(isLoading)
         .padding(.horizontal, 30)
-        .padding(.bottom, 50)
+        .padding(.bottom, 10)
     }
 }
 
