@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContactView: View {
-    private let email = "contact@briefly.news"
-    private let linkedin = "linkedin.com/company/briefly-news"
+    private let email = "vaidik50000@gmail.com"
+    private let linkedin = "linkedin.com/company/briefly-news-app/?viewAsMember=true"
     
     @Environment(\.openURL) private var openURL
     

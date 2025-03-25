@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.briefly.news.ui.ContactScreen
 import com.briefly.news.ui.NewsScreen
 import com.briefly.news.ui.SelectionScreen
 import com.briefly.news.ui.theme.BrieflyNewsTheme
@@ -34,6 +35,9 @@ fun BrieflyNewsApp() {
                 viewModel = viewModel,
                 onNavigateToNews = { genre ->
                     navController.navigate("news/$genre")
+                },
+                onNavigateToContact = {
+                    navController.navigate("contact")
                 }
             )
         }
@@ -42,6 +46,11 @@ fun BrieflyNewsApp() {
             NewsScreen(
                 viewModel = viewModel,
                 selectedGenre = genre,
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        composable("contact") {
+            ContactScreen(
                 onNavigateUp = { navController.navigateUp() }
             )
         }

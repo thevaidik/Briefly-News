@@ -6,16 +6,18 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.briefly.news.viewmodel.NewsViewModel
@@ -23,17 +25,18 @@ import com.briefly.news.viewmodel.NewsViewModel
 @Composable
 fun SelectionScreen(
     viewModel: NewsViewModel,
-    onNavigateToNews: (String) -> Unit
+    onNavigateToNews: (String) -> Unit,
+    onNavigateToContact: () -> Unit
 ) {
     val genres = listOf(
-        "technology", "business", "sports", "entertainment", "science",
-        "world", "health", "ai", "hollywood", "defence", "politics",
+        "technology", "business", "sports", "entertainment", "science", 
+        "world", "health", "ai", "hollywood", "defence", "politics", 
         "automobile", "space", "economy"
     )
     
     var selectedGenre by remember { mutableStateOf("technology") }
     var isLoading by remember { mutableStateOf(false) }
-
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -50,31 +53,28 @@ fun SelectionScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(50.dp))
-            
             Text(
                 text = "Explore News",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.shadow(10.dp)
+                modifier = Modifier.padding(top = 50.dp, bottom = 8.dp)
             )
             
             Text(
                 text = "Select Genre",
-                fontSize = 20.sp,
-                color = Color.White.copy(alpha = 0.8f)
+                fontSize = 18.sp,
+                color = Color.White.copy(alpha = 0.8f),
+                modifier = Modifier.padding(bottom = 16.dp)
             )
-
+            
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = 120.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(horizontal = 8.dp)
+                modifier = Modifier.weight(1f)
             ) {
                 items(genres) { genre ->
                     GenreButton(
@@ -84,7 +84,8 @@ fun SelectionScreen(
                     )
                 }
             }
-
+            
+            // Generate button
             Button(
                 onClick = {
                     isLoading = true
@@ -98,7 +99,7 @@ fun SelectionScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
-                    .padding(horizontal = 14.dp)
+                    .padding(horizontal = 30.dp)
                     .shadow(10.dp, RoundedCornerShape(15.dp)),
                 shape = RoundedCornerShape(15.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -108,56 +109,68 @@ fun SelectionScreen(
             ) {
                 if (isLoading) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
                         color = Color.White,
+                        modifier = Modifier.size(24.dp),
                         strokeWidth = 2.dp
                     )
                     Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Generating...",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                } else {
+                    Text(
+                        text = "Generate News",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
-                Text(
-                    text = if (isLoading) "Generating..." else "Generate News",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.White
-                )
             }
             
-            Spacer(modifier = Modifier.height(30.dp))
+            // Contact Us button
+            TextButton(
+                onClick = onNavigateToContact,
+                modifier = Modifier.padding(vertical = 20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Email,
+                    contentDescription = null,
+                    tint = Color.White.copy(alpha = 0.8f),
+                    modifier = Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Contact Us",
+                    color = Color.White.copy(alpha = 0.8f),
+                    fontSize = 14.sp
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun GenreButton(
+fun GenreButton(
     genre: String,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .shadow(
-                elevation = if (isSelected) 5.dp else 0.dp,
-                shape = RoundedCornerShape(25.dp)
-            )
-            .defaultMinSize(minWidth = 80.dp, minHeight = 36.dp)
-            .height(36.dp),
         shape = RoundedCornerShape(25.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isSelected) Color(0xFF007AFF) else Color.White.copy(alpha = 0.1f)
         ),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-        border = if (isSelected) ButtonDefaults.outlinedButtonBorder else null
+        modifier = Modifier.height(36.dp)
     ) {
         Text(
             text = genre,
             fontSize = 14.sp,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
             color = if (isSelected) Color.White else Color.Gray,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f, fill = false)
+            maxLines = 1
         )
     }
 }
