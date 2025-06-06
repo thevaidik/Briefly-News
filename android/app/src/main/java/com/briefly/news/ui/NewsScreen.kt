@@ -35,6 +35,7 @@ import com.briefly.news.data.NewsPoint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.runtime.LaunchedEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +45,8 @@ fun NewsScreen(
     onNavigateUp: () -> Unit
 ) {
     val listState = rememberLazyListState()
+    
+
 
     Box(
         modifier = Modifier
@@ -81,6 +84,12 @@ fun NewsScreen(
                     onRetry = { viewModel.fetchNews(selectedGenre) }
                 )
             } else {
+                // Debug log for cursor and news items
+                LaunchedEffect(viewModel.nextCursor, viewModel.newsItems) {
+                    println("DEBUG: nextCursor value: ${viewModel.nextCursor}")
+                    println("DEBUG: News items count: ${viewModel.newsItems.size}")
+                }
+                
                 LazyColumn(
                     state = listState,
                     contentPadding = PaddingValues(16.dp),
@@ -96,17 +105,19 @@ fun NewsScreen(
                     
                     // Add tap-to-load more button
                     if (viewModel.nextCursor != null) {
+                        println("DEBUG: Showing Load More button")
                         item {
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
+                                    .padding(horizontal = 16.dp)
+                                    .padding(vertical = 16.dp)
                                     .clickable {
                                         viewModel.fetchMoreNews(selectedGenre)
                                     },
                                 shape = RoundedCornerShape(12.dp),
                                 colors = CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.15f)
+                                    containerColor = Color.White.copy(alpha = 0.15f)
                                 )
                             ) {
                                 Box(
@@ -118,13 +129,13 @@ fun NewsScreen(
                                     if (viewModel.isLoadingMore) {
                                         CircularProgressIndicator(
                                             modifier = Modifier.size(24.dp),
-                                            color = MaterialTheme.colorScheme.primary,
+                                            color = Color.White,
                                             strokeWidth = 2.dp
                                         )
                                     } else {
                                         Text(
                                             text = "Tap to Load More",
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = Color.White.copy(alpha = 0.9f),
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Medium
                                         )

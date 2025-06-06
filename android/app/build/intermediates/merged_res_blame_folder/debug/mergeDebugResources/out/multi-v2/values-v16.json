@@ -4,7 +4,7 @@
             "outputFile": "com.briefly.news.app-mergeDebugResources-50:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/vaidikdubey/.gradle/caches/8.13/transforms/bd3e7827489e0ae8c3a5ca5cf13285ee/transformed/core-1.12.0/res/values-v16/values-v16.xml",
+                    "source": "/Users/vaidikdubey/.gradle/caches/8.13/transforms/07e69c4590b39a7d6b4bcf04ba29b751/transformed/core-1.12.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

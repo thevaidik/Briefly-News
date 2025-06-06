@@ -1,7 +1,12 @@
 package com.briefly.news.data
 
+import com.google.gson.annotations.SerializedName
+
 data class NewsResponse(
+    @SerializedName("news")
     val news: List<NewsItem>,
+    
+    @SerializedName("next_cursor")
     val nextCursor: String?
 )
 

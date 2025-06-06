@@ -53,10 +53,12 @@ class NewsViewModel : ViewModel() {
             nextCursor = null
             
             try {
+                println("DEBUG: Fetching initial news for genre: $genre")
                 val response = newsService.getNews(genre)
+                println("DEBUG: Received response with ${response.news.size} items, nextCursor: ${response.nextCursor}")
                 newsItems = response.news
                 nextCursor = response.nextCursor
-                println("DEBUG: Fetched news, nextCursor: $nextCursor")
+                println("DEBUG: Updated state - newsItems: ${newsItems.size}, nextCursor: $nextCursor")
                 isLoading = false
                 onComplete?.invoke(true)
             } catch (e: Exception) {
@@ -81,14 +83,25 @@ class NewsViewModel : ViewModel() {
             try {
                 val cursor = nextCursor!!
                 println("DEBUG: Fetching more news with cursor: $cursor")
+                println("DEBUG: Fetching more news with genre: $genre, cursor: $cursor")
                 val response = newsService.getNewsWithCursor(genre, cursor)
-                newsItems = newsItems + response.news
+                println("DEBUG: Received more news - ${response.news.size} items, new nextCursor: ${response.nextCursor}")
+                
+                // Create a new list with existing items and append new ones
+                val updatedList = newsItems.toMutableList()
+                updatedList.addAll(response.news)
+                
+                // Update the state
+                newsItems = updatedList
                 nextCursor = response.nextCursor
-                println("DEBUG: Fetched more news, new nextCursor: $nextCursor")
+                
+                println("DEBUG: Updated state - total items: ${newsItems.size}, nextCursor: $nextCursor")
                 isLoadingMore = false
                 onComplete?.invoke(true)
             } catch (e: Exception) {
                 errorMessage = "Failed to load more news: ${e.localizedMessage}"
+                println("ERROR: ${e.message}")
+                e.printStackTrace()
                 isLoadingMore = false
                 onComplete?.invoke(false)
             }
