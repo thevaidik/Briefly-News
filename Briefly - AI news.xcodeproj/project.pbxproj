@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		206720B02D357E3A0096970F /* Briefly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Briefly.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		206720C02D357E3D0096970F /* BrieflyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrieflyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		206720CA2D357E3D0096970F /* BrieflyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrieflyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720B02D357E3A0096970F /* Briefly - AI news.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Briefly - AI news.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720C02D357E3D0096970F /* Briefly - AI newsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Briefly - AI newsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		206720CA2D357E3D0096970F /* Briefly - AI newsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Briefly - AI newsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -73,9 +73,9 @@
 		206720B12D357E3A0096970F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				206720B02D357E3A0096970F /* Briefly.app */,
-				206720C02D357E3D0096970F /* BrieflyTests.xctest */,
-				206720CA2D357E3D0096970F /* BrieflyUITests.xctest */,
+				206720B02D357E3A0096970F /* Briefly - AI news.app */,
+				206720C02D357E3D0096970F /* Briefly - AI newsTests.xctest */,
+				206720CA2D357E3D0096970F /* Briefly - AI newsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,9 +83,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		206720AF2D357E3A0096970F /* Briefly */ = {
+		206720AF2D357E3A0096970F /* Briefly - AI news */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly" */;
+			buildConfigurationList = 206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI news" */;
 			buildPhases = (
 				206720AC2D357E3A0096970F /* Sources */,
 				206720AD2D357E3A0096970F /* Frameworks */,
@@ -98,16 +98,16 @@
 			fileSystemSynchronizedGroups = (
 				206720B22D357E3A0096970F /* Briefly */,
 			);
-			name = Briefly;
+			name = "Briefly - AI news";
 			packageProductDependencies = (
 			);
 			productName = "News points";
-			productReference = 206720B02D357E3A0096970F /* Briefly.app */;
+			productReference = 206720B02D357E3A0096970F /* Briefly - AI news.app */;
 			productType = "com.apple.product-type.application";
 		};
-		206720BF2D357E3D0096970F /* BrieflyTests */ = {
+		206720BF2D357E3D0096970F /* Briefly - AI newsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyTests" */;
+			buildConfigurationList = 206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI newsTests" */;
 			buildPhases = (
 				206720BC2D357E3D0096970F /* Sources */,
 				206720BD2D357E3D0096970F /* Frameworks */,
@@ -118,16 +118,16 @@
 			dependencies = (
 				206720C22D357E3D0096970F /* PBXTargetDependency */,
 			);
-			name = BrieflyTests;
+			name = "Briefly - AI newsTests";
 			packageProductDependencies = (
 			);
 			productName = "News pointsTests";
-			productReference = 206720C02D357E3D0096970F /* BrieflyTests.xctest */;
+			productReference = 206720C02D357E3D0096970F /* Briefly - AI newsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		206720C92D357E3D0096970F /* BrieflyUITests */ = {
+		206720C92D357E3D0096970F /* Briefly - AI newsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyUITests" */;
+			buildConfigurationList = 206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI newsUITests" */;
 			buildPhases = (
 				206720C62D357E3D0096970F /* Sources */,
 				206720C72D357E3D0096970F /* Frameworks */,
@@ -138,11 +138,11 @@
 			dependencies = (
 				206720CC2D357E3D0096970F /* PBXTargetDependency */,
 			);
-			name = BrieflyUITests;
+			name = "Briefly - AI newsUITests";
 			packageProductDependencies = (
 			);
 			productName = "News pointsUITests";
-			productReference = 206720CA2D357E3D0096970F /* BrieflyUITests.xctest */;
+			productReference = 206720CA2D357E3D0096970F /* Briefly - AI newsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -168,7 +168,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly" */;
+			buildConfigurationList = 206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly - AI news" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -182,9 +182,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				206720AF2D357E3A0096970F /* Briefly */,
-				206720BF2D357E3D0096970F /* BrieflyTests */,
-				206720C92D357E3D0096970F /* BrieflyUITests */,
+				206720AF2D357E3A0096970F /* Briefly - AI news */,
+				206720BF2D357E3D0096970F /* Briefly - AI newsTests */,
+				206720C92D357E3D0096970F /* Briefly - AI newsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -240,12 +240,12 @@
 /* Begin PBXTargetDependency section */
 		206720C22D357E3D0096970F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 206720AF2D357E3A0096970F /* Briefly */;
+			target = 206720AF2D357E3A0096970F /* Briefly - AI news */;
 			targetProxy = 206720C12D357E3D0096970F /* PBXContainerItemProxy */;
 		};
 		206720CC2D357E3D0096970F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 206720AF2D357E3A0096970F /* Briefly */;
+			target = 206720AF2D357E3A0096970F /* Briefly - AI news */;
 			targetProxy = 206720CB2D357E3D0096970F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -443,7 +443,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly - AI news.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly - AI news";
 			};
 			name = Debug;
 		};
@@ -462,7 +462,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Briefly - AI news.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Briefly - AI news";
 			};
 			name = Release;
 		};
@@ -503,7 +503,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly" */ = {
+		206720AB2D357E3A0096970F /* Build configuration list for PBXProject "Briefly - AI news" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D22D357E3D0096970F /* Debug */,
@@ -512,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly" */ = {
+		206720D42D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI news" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D52D357E3D0096970F /* Debug */,
@@ -521,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyTests" */ = {
+		206720D72D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI newsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720D82D357E3D0096970F /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "BrieflyUITests" */ = {
+		206720DA2D357E3D0096970F /* Build configuration list for PBXNativeTarget "Briefly - AI newsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				206720DB2D357E3D0096970F /* Debug */,
