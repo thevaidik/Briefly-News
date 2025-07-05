@@ -1,11 +1,4 @@
-defaultConfig {
-    applicationId "com.briefly.news"
-    minSdk 24
-    targetSdk 34
-    versionCode 4            // Changed from 1 to 4 (next number after 3)
-    versionName "1.2.1"      // Changed from "1.0" to "1.2.1" (minor update)
-    // ... rest of the config
-}# ================
+# ================
 # Android
 # ================
 # Built application files
