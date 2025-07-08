@@ -113,50 +113,68 @@ struct NewsView: View {
     }
 }
 
-struct NewsItemView: View {
-    let item: NewsItem
-    
-    var body: some View {
-        Link(destination: URL(string: item.points.first?.url ?? "")!) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(item.title)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.white)
-                    .lineLimit(2)
-                
-                if let firstPoint = item.points.first {
-                    Text(firstPoint.description)
-                        .font(.system(size: 13))
-                        .foregroundColor(.gray)
-                        .lineLimit(2)
+    struct NewsItemView: View {
+        let item: NewsItem
+        
+        var body: some View {
+            Link(destination: URL(string: item.points.first?.url ?? "")!) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(item.title)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(3)
                     
-                    HStack {
-                        Text(firstPoint.source)
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
+                    if let firstPoint = item.points.first {
+                        Text(firstPoint.description)
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray.opacity(0.9))
+                            .lineLimit(4) // Show more lines
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        HStack(spacing: 12) {
+                            Label {
+                                Text(firstPoint.source)
+                                    .font(.system(size: 13, weight: .medium))
+                            } icon: {
+                                Image(systemName: "globe")
+                            }
+                            .foregroundColor(.blue)
                             .lineLimit(1)
-                        
-                        Spacer()
-                        
-                        Text(formatPublishedDate(firstPoint.publishedAt))
-                            .font(.system(size: 11))
+                            
+                            Spacer()
+                            
+                            Label {
+                                Text(formatPublishedDate(firstPoint.publishedAt))
+                                    .font(.system(size: 12))
+                            } icon: {
+                                Image(systemName: "clock")
+                            }
                             .foregroundColor(.gray)
-                    }
-                    
-                    HStack {
-                        Text("Read more")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(Color(red: 10/255, green: 132/255, blue: 1))
-                        Spacer()
+                        }
+
+                        Divider().background(Color.white.opacity(0.1))
+
+                        HStack {
+                            Text("Read more")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.blue)
+                            Spacer()
+                            Image(systemName: "arrow.right.circle.fill")
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
+                .padding(18)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.black.opacity(0.4))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                        )
+                )
             }
-            .padding(12)
-            .background(Color(red: 28/255, green: 28/255, blue: 30/255))
-            .cornerRadius(8)
-            .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
         }
-    }
     
     private func formatPublishedDate(_ dateString: String) -> String {
         // Example: "Tue, 18 Mar 2025 16:52:09 +00"
@@ -182,3 +200,65 @@ struct NewsItemView: View {
         return "\(day), \(date) \(month) \(hour):\(minute)"
     }
 }
+
+import SwiftUI
+
+#Preview {
+    NewsView(
+        viewModel: MockNewsViewModel(),
+        selectedGenre: "Technology"
+    )
+}
+
+final class MockNewsViewModel: NewsViewModel {
+    override init() {
+        super.init()
+        self.news = [
+            NewsItem(
+                category: "Technology",
+                timestamp: Int(Date().timeIntervalSince1970),
+                newsId: UUID().uuidString,
+                title: "OpenAI releases GPT-5 with revolutionary reasoning abilities",
+                points: [
+                    NewsPoint(
+                        text: "GPT-5 reasoning capabilities rival human experts.",
+                        description: "GPT-5 is being used in high-level research, decision-making, and even legal reasoning.",
+                        url: "https://openai.com/blog/gpt-5",
+                        source: "OpenAI Blog",
+                        publishedAt: "Sun, 06 Jul 2025 12:00:00 +00"
+                    )
+                ],
+                fetchedAt: Int(Date().timeIntervalSince1970),
+                ttl: 86400
+            ),
+            NewsItem(
+                category: "Technology",
+                timestamp: Int(Date().timeIntervalSince1970) - 86400,
+                newsId: UUID().uuidString,
+                title: "Apple introduces Vision Pro 2: Lighter, Faster, Smarter",
+                points: [
+                    NewsPoint(
+                        text: "Vision Pro 2 is setting new standards in spatial computing.",
+                        description: "Apple’s latest headset brings thinner design and better battery life to the mixed reality world.",
+                        url: "https://apple.com/newsroom",
+                        source: "Apple Newsroom",
+                        publishedAt: "Sat, 05 Jul 2025 09:30:00 +00"
+                    )
+                ],
+                fetchedAt: Int(Date().timeIntervalSince1970) - 3600,
+                ttl: 86400
+            )
+        ]
+        self.nextCursor = "next_page_cursor"
+        self.isLoadingMore = false
+    }
+
+    override func fetchNews(genre: String) async {
+        try? await Task.sleep(nanoseconds: 300_000_000)
+    }
+
+    override func fetchMoreNews(genre: String) async {
+        try? await Task.sleep(nanoseconds: 300_000_000)
+    }
+}
+
