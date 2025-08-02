@@ -6,33 +6,38 @@
 //
 import SwiftUI
 
-struct GlassButton: View {
+struct ModernLoadMoreButton: View {
     let title: String
     let isLoading: Bool
+    let isDarkMode: Bool
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white.opacity(0.15)) // Glass effect
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
-                    )
-                
+            HStack(spacing: 8) {
                 if isLoading {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                        .scaleEffect(1.0)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .scaleEffect(0.8)
                 } else {
-                    Text(title)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white.opacity(0.9))
+                    Image(systemName: "arrow.down.circle.fill")
+                        .font(.system(size: 16, weight: .black))
+                        .foregroundColor(.blue)
                 }
+                
+                Text(title)
+                    .font(.system(size: 14, weight: .black))
+                    .foregroundColor(.blue)
             }
-            .frame(height: 50)
-            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
+            .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
+            .cornerRadius(22)
+            .overlay(
+                RoundedRectangle(cornerRadius: 22)
+                    .stroke(isDarkMode ? .gray : .black, lineWidth: 1.5)
+            )
+            .shadow(color: .black.opacity(0.1), radius: 2, x: 2, y: 2)
         }
         .disabled(isLoading)
     }
@@ -41,58 +46,87 @@ struct GlassButton: View {
 struct NewsView: View {
     @StateObject var viewModel: NewsViewModel
     let selectedGenre: String
+    let isDarkMode: Bool
     @Environment(\.dismiss) private var dismiss
-    @State private var showLoadMore = false
+    @State private var selectedTab = "Today"
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.black, .gray.opacity(0.8)], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
+            // Manual theme controlled background
+            LinearGradient(
+                colors: [
+                    isDarkMode ? Color(red: 0.1, green: 0.1, blue: 0.15) : Color(red: 0.75, green: 0.85, blue: 0.92),
+                    isDarkMode ? Color(red: 0.15, green: 0.15, blue: 0.2) : Color(red: 0.92, green: 0.95, blue: 0.98)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Custom Navigation Bar
                 HStack {
                     Button(action: { dismiss() }) {
                         Image(systemName: "chevron.left")
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.white)
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(isDarkMode ? .white : .black)
+                            .frame(width: 32, height: 32)
+                            .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(isDarkMode ? .gray : .black, lineWidth: 1)
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
                     }
-                    .padding(.leading)
                     
                     Spacer()
                     
                     VStack(spacing: 2) {
-                        Text("\(selectedGenre) News")
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.white)
+                        Text("\(selectedGenre.capitalized)")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
-                        Text("Updated Daily")
+                        Text("Latest Updates")
                             .font(.system(size: 12))
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(.gray)
                     }
                     
                     Spacer()
                     
-                    // Empty view for balance
-                    Color.clear
-                        .frame(width: 24)
-                        .padding(.trailing)
+                    // Bookmark button
+                    Button(action: {}) {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(isDarkMode ? .white : .black)
+                            .frame(width: 32, height: 32)
+                            .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(isDarkMode ? .gray : .black, lineWidth: 1)
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 1, y: 1)
+                    }
                 }
-                .frame(height: 44)
-                .background(Color.black.opacity(0.01))
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
+                
+
                 
                 // Content
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         ForEach(viewModel.news) { item in
-                            NewsItemView(item: item)
+                            ModernNewsItemView(item: item, isDarkMode: isDarkMode)
                         }
                         
-                        // Replace existing load more section with new button
+                        // Load more button
                         if viewModel.nextCursor != nil {
-                            GlassButton(
-                                title: "Tap to Load More",
-                                isLoading: viewModel.isLoadingMore
+                            ModernLoadMoreButton(
+                                title: "Load More Stories",
+                                isLoading: viewModel.isLoadingMore,
+                                isDarkMode: isDarkMode
                             ) {
                                 Task {
                                     await viewModel.fetchMoreNews(genre: selectedGenre)
@@ -101,11 +135,11 @@ struct NewsView: View {
                             .padding(.vertical, 16)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                 }
             }
         }
-        .preferredColorScheme(.dark)
         .navigationBarHidden(true)
         .task {
             await viewModel.fetchNews(genre: selectedGenre)
@@ -113,68 +147,88 @@ struct NewsView: View {
     }
 }
 
-    struct NewsItemView: View {
-        let item: NewsItem
-        
-        var body: some View {
-            Link(destination: URL(string: item.points.first?.url ?? "")!) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(item.title)
-                        .font(.system(size: 18, weight: .semibold))
+
+
+struct ModernNewsItemView: View {
+    let item: NewsItem
+    let isDarkMode: Bool
+    
+    var body: some View {
+        Link(destination: URL(string: item.points.first?.url ?? "")!) {
+            VStack(alignment: .leading, spacing: 12) {
+                // Header with category badge
+                HStack {
+                    Text(item.category.capitalized)
+                        .font(.system(size: 11, weight: .semibold))
                         .foregroundColor(.white)
-                        .lineLimit(3)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.blue)
+                        .cornerRadius(6)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                    
+                    Spacer()
                     
                     if let firstPoint = item.points.first {
-                        Text(firstPoint.description)
-                            .font(.system(size: 15))
-                            .foregroundColor(.gray.opacity(0.9))
-                            .lineLimit(4) // Show more lines
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        HStack(spacing: 12) {
-                            Label {
-                                Text(firstPoint.source)
-                                    .font(.system(size: 13, weight: .medium))
-                            } icon: {
-                                Image(systemName: "globe")
-                            }
-                            .foregroundColor(.blue)
-                            .lineLimit(1)
-                            
-                            Spacer()
-                            
-                            Label {
-                                Text(formatPublishedDate(firstPoint.publishedAt))
-                                    .font(.system(size: 12))
-                            } icon: {
-                                Image(systemName: "clock")
-                            }
+                        Text(formatPublishedDate(firstPoint.publishedAt))
+                            .font(.system(size: 11, weight: .medium))
                             .foregroundColor(.gray)
+                    }
+                }
+                
+                Text(item.title)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(isDarkMode ? .white : .black)
+                    .lineLimit(3)
+                    .multilineTextAlignment(.leading)
+                
+                if let firstPoint = item.points.first {
+                    Text(firstPoint.description)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(isDarkMode ? .white.opacity(0.7) : .black.opacity(0.7))
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                    
+                    // Source and action
+                    HStack {
+                        HStack(spacing: 4) {
+                            Image(systemName: "globe")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(isDarkMode ? .white : .black)
+                            
+                            Text(firstPoint.source)
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(isDarkMode ? .white : .black)
+                                .lineLimit(1)
                         }
-
-                        Divider().background(Color.white.opacity(0.1))
-
-                        HStack {
-                            Text("Read more")
-                                .font(.system(size: 14, weight: .semibold))
+                        
+                        Spacer()
+                        
+                        HStack(spacing: 4) {
+                            Text("Read")
+                                .font(.system(size: 12, weight: .black))
                                 .foregroundColor(.blue)
-                            Spacer()
-                            Image(systemName: "arrow.right.circle.fill")
+                            
+                            Image(systemName: "arrow.up.right")
+                                .font(.system(size: 10, weight: .black))
                                 .foregroundColor(.blue)
                         }
                     }
                 }
-                .padding(18)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.black.opacity(0.4))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.white.opacity(0.06), lineWidth: 1)
-                        )
-                )
             }
+            .padding(16)
+            .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(isDarkMode ? .gray : .black, lineWidth: 1.5)
+            )
+            .shadow(color: .black.opacity(0.1), radius: 2, x: 2, y: 2)
         }
+    }
     
     private func formatPublishedDate(_ dateString: String) -> String {
         // Example: "Tue, 18 Mar 2025 16:52:09 +00"
@@ -206,7 +260,8 @@ import SwiftUI
 #Preview {
     NewsView(
         viewModel: MockNewsViewModel(),
-        selectedGenre: "Technology"
+        selectedGenre: "Technology",
+        isDarkMode: false
     )
 }
 
