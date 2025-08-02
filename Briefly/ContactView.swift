@@ -20,8 +20,10 @@ struct ContactView: View {
       // Softer background that's easier on the eyes
       LinearGradient(
         colors: [
-          isDarkMode ? Color(red: 0.1, green: 0.1, blue: 0.15) : Color(red: 0.75, green: 0.85, blue: 0.92),
-          isDarkMode ? Color(red: 0.15, green: 0.15, blue: 0.2) : Color(red: 0.92, green: 0.95, blue: 0.98),
+          isDarkMode
+            ? Color(red: 0.1, green: 0.1, blue: 0.15) : Color(red: 0.75, green: 0.85, blue: 0.92),
+          isDarkMode
+            ? Color(red: 0.15, green: 0.15, blue: 0.2) : Color(red: 0.92, green: 0.95, blue: 0.98),
         ],
         startPoint: .top,
         endPoint: .bottom
@@ -81,11 +83,11 @@ struct ContactView: View {
               VStack(spacing: 4) {
                 Text("Briefly Team")
                   .font(.system(size: 20, weight: .bold))
-                  .foregroundColor(Color.adaptive(light: .black, dark: .white))
+                  .foregroundColor(isDarkMode ? .white : .black)
 
                 Text("Get in touch with us")
                   .font(.system(size: 14, weight: .medium))
-                  .foregroundColor(Color.adaptive(light: .gray, dark: .gray))
+                  .foregroundColor(.gray)
               }
             }
             .padding(.top, 40)
@@ -113,14 +115,14 @@ struct ContactView: View {
             VStack(spacing: 12) {
               Text("We'd love to hear from you!")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(Color.adaptive(light: .black, dark: .white))
+                .foregroundColor(isDarkMode ? .white : .black)
                 .multilineTextAlignment(.center)
 
               Text(
                 "Whether you have feedback, suggestions, or just want to say hello, don't hesitate to reach out."
               )
               .font(.system(size: 14))
-              .foregroundColor(Color.adaptive(light: .gray, dark: .gray))
+              .foregroundColor(.gray)
               .multilineTextAlignment(.center)
               .lineLimit(nil)
             }
@@ -148,18 +150,18 @@ struct ContactView: View {
           .cornerRadius(20)
           .overlay(
             RoundedRectangle(cornerRadius: 20)
-              .stroke(Color.adaptive(light: .black, dark: Color.white.opacity(0.2)), lineWidth: 1)
+              .stroke(isDarkMode ? .gray : .black, lineWidth: 1)
           )
 
         // Content
         VStack(alignment: .leading, spacing: 2) {
           Text(title)
             .font(.system(size: 16, weight: .semibold))
-            .foregroundColor(Color.adaptive(light: .black, dark: .white))
+            .foregroundColor(isDarkMode ? .white : .black)
 
           Text(subtitle)
             .font(.system(size: 13))
-            .foregroundColor(Color.adaptive(light: .gray, dark: .gray))
+            .foregroundColor(.gray)
         }
 
         Spacer()
@@ -167,14 +169,14 @@ struct ContactView: View {
         // Arrow
         Image(systemName: "chevron.right")
           .font(.system(size: 14))
-          .foregroundColor(Color.adaptive(light: .gray, dark: .gray))
+          .foregroundColor(.gray)
       }
       .padding(16)
-      .background(Color.adaptive(light: .white, dark: Color.white.opacity(0.1)))
+      .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
       .cornerRadius(16)
       .overlay(
         RoundedRectangle(cornerRadius: 16)
-          .stroke(Color.adaptive(light: .black, dark: Color.white.opacity(0.1)), lineWidth: 1.5)
+          .stroke(isDarkMode ? .gray : .black, lineWidth: 1.5)
       )
       .shadow(color: .black.opacity(0.1), radius: 2, x: 2, y: 2)
     }
