@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContactView: View {
   private let email = "vaidik50000@gmail.com"
-  private let linkedin = "linkedin.com/company/briefly-news-app/?viewAsMember=true"
+  private let linkedin = "linkedin.com/in/vaidikxx"
   let isDarkMode: Bool
 
   @Environment(\.openURL) private var openURL
@@ -97,8 +97,8 @@ struct ContactView: View {
               modernContactItem(
                 icon: "envelope.fill",
                 title: "Email",
-                subtitle: "Send us an email",
-                value: email,
+                subtitle: email,
+                value: "Tap to send email",
                 action: { openURL(URL(string: "mailto:\(email)")!) }
               )
 
@@ -160,8 +160,8 @@ struct ContactView: View {
             .foregroundColor(isDarkMode ? .white : .black)
 
           Text(subtitle)
-            .font(.system(size: 13))
-            .foregroundColor(.gray)
+            .font(.system(size: 13, weight: .medium))
+            .foregroundColor(isDarkMode ? .white.opacity(0.8) : .black.opacity(0.8))
         }
 
         Spacer()
