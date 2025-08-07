@@ -17,6 +17,7 @@ struct SelectionView: View {
   @State private var selectedGenre = "technology"
   @State private var showingNews = false
   @State private var showingContact = false
+  @State private var showingRSS = false
   @State private var isLoading = false
   @State private var isDarkMode = false
   @StateObject private var viewModel = NewsViewModel()
@@ -130,7 +131,8 @@ struct SelectionView: View {
             .animation(.easeInOut(duration: 0.3), value: isLoading)
 
             // Bottom tab bar
-            BottomTabBar(showingContact: $showingContact, isDarkMode: isDarkMode)
+            BottomTabBar(
+              showingContact: $showingContact, showingRSS: $showingRSS, isDarkMode: isDarkMode)
           }
           .padding(.bottom, 10)
         }
@@ -140,6 +142,9 @@ struct SelectionView: View {
       }
       .navigationDestination(isPresented: $showingContact) {
         ContactView(isDarkMode: isDarkMode)
+      }
+      .navigationDestination(isPresented: $showingRSS) {
+        RSSInputView(isDarkMode: isDarkMode)
       }
     }
   }
@@ -207,6 +212,7 @@ struct ModernGenreButton: View {
 
 struct BottomTabBar: View {
   @Binding var showingContact: Bool
+  @Binding var showingRSS: Bool
   let isDarkMode: Bool
 
   var body: some View {
@@ -215,7 +221,9 @@ struct BottomTabBar: View {
       TabBarButton(icon: "envelope.fill", isSelected: false) {
         showingContact = true
       }
-      TabBarButton(icon: "dot.radiowaves.left.and.right", isSelected: false)
+      TabBarButton(icon: "dot.radiowaves.left.and.right", isSelected: false) {
+        showingRSS = true
+      }
     }
     .padding(.horizontal, 20)
     .padding(.vertical, 12)
