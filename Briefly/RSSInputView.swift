@@ -164,8 +164,7 @@ struct RSSInputView: View {
                             
                             VStack(spacing: 8) {
                                 sampleRSSButton("TechCrunch", "https://techcrunch.com/feed/")
-                                sampleRSSButton("The Verge", "https://www.theverge.com/rss/index.xml")
-                                sampleRSSButton("Reuters", "https://feeds.reuters.com/reuters/topNews")
+                                sampleRSSButton("Foreign Affairs", "https://www.foreignaffairs.com/rss.xml")
                                 sampleRSSButton("Hacker News", "https://hnrss.org/frontpage")
                             }
                         }
