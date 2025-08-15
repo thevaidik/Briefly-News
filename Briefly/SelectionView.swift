@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct SelectionView: View {
-  private let genres = [
-    "technology", "business", "sports", "entertainment", "science", "world", "health", "ai",
-    "hollywood", "defence", "politics", "automobile", "space", "economy",
-  ]
   private let columns = [GridItem(.adaptive(minimum: 100), spacing: 12)]
 
   @State private var selectedGenre = "technology"
@@ -19,8 +15,13 @@ struct SelectionView: View {
   @State private var showingContact = false
   @State private var showingRSS = false
   @State private var isLoading = false
-  @State private var isDarkMode = false
   @StateObject private var viewModel = NewsViewModel()
+  @EnvironmentObject var themeManager: ThemeManager
+  @EnvironmentObject var rssManager: RSSCategoryManager
+  
+  private var availableGenres: [String] {
+    rssManager.getAllCategories()
+  }
 
   var body: some View {
     NavigationStack {
@@ -28,9 +29,9 @@ struct SelectionView: View {
         // Manual theme controlled background
         LinearGradient(
           colors: [
-            isDarkMode
+            themeManager.isDarkMode
               ? Color(red: 0.1, green: 0.1, blue: 0.15) : Color(red: 0.75, green: 0.85, blue: 0.92),
-            isDarkMode
+            themeManager.isDarkMode
               ? Color(red: 0.15, green: 0.15, blue: 0.2)
               : Color(red: 0.92, green: 0.95, blue: 0.98),
           ],
@@ -44,23 +45,23 @@ struct SelectionView: View {
           HStack {
             Text("News Feeds")
               .font(.system(size: 24, weight: .bold))
-              .foregroundColor(isDarkMode ? .white : .black)
+              .foregroundColor(themeManager.isDarkMode ? .white : .black)
 
             Spacer()
 
             // Theme toggle button
             Button(action: {
-              isDarkMode.toggle()
+              themeManager.toggleTheme()
             }) {
-              Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+              Image(systemName: themeManager.isDarkMode ? "moon.fill" : "sun.max.fill")
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(isDarkMode ? .blue : .orange)
+                .foregroundColor(themeManager.isDarkMode ? .blue : .orange)
                 .frame(width: 40, height: 40)
-                .background(isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
+                .background(themeManager.isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.25) : .white)
                 .cornerRadius(20)
                 .overlay(
                   RoundedRectangle(cornerRadius: 20)
-                    .stroke(isDarkMode ? .gray : .black, lineWidth: 1.5)
+                    .stroke(themeManager.isDarkMode ? .gray : .black, lineWidth: 1.5)
                 )
                 .shadow(color: .black.opacity(0.1), radius: 2, x: 2, y: 2)
             }
@@ -74,11 +75,11 @@ struct SelectionView: View {
             // Genre grid
             ScrollView {
               LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(genres, id: \.self) { genre in
+                ForEach(availableGenres, id: \.self) { genre in
                   ModernGenreButton(
                     genre: genre,
                     isSelected: selectedGenre == genre,
-                    isDarkMode: isDarkMode,
+                    isDarkMode: themeManager.isDarkMode,
                     action: { selectedGenre = genre }
                   )
                 }
@@ -132,19 +133,25 @@ struct SelectionView: View {
 
             // Bottom tab bar
             BottomTabBar(
-              showingContact: $showingContact, showingRSS: $showingRSS, isDarkMode: isDarkMode)
+              showingContact: $showingContact, showingRSS: $showingRSS, isDarkMode: themeManager.isDarkMode)
           }
           .padding(.bottom, 10)
         }
       }
       .navigationDestination(isPresented: $showingNews) {
-        NewsView(viewModel: viewModel, selectedGenre: selectedGenre, isDarkMode: isDarkMode)
+        NewsView(viewModel: viewModel, selectedGenre: selectedGenre, isDarkMode: themeManager.isDarkMode)
       }
       .navigationDestination(isPresented: $showingContact) {
-        ContactView(isDarkMode: isDarkMode)
+        ContactView(isDarkMode: themeManager.isDarkMode)
       }
       .navigationDestination(isPresented: $showingRSS) {
-        RSSInputView(isDarkMode: isDarkMode)
+        RSSCategoryManagementView()
+      }
+      .onAppear {
+        // Ensure selected genre is valid
+        if !availableGenres.contains(selectedGenre) {
+          selectedGenre = availableGenres.first ?? "technology"
+        }
       }
     }
   }
@@ -260,4 +267,8 @@ struct TabBarButton: View {
   }
 }
 
-#Preview { SelectionView() }
+#Preview { 
+    SelectionView()
+        .environmentObject(ThemeManager())
+        .environmentObject(RSSCategoryManager())
+}
